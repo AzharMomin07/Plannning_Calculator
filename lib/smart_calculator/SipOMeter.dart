@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'HomePage.dart';
+import 'package:sip_planner/navigation_bar/HomePage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SIPCalculatorScreen extends StatefulWidget {
   const SIPCalculatorScreen({super.key});
@@ -20,11 +21,13 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
 // Variables to hold the calculated values
   double totalInvestment = 0;
   double totalReturns = 0;
+
   @override
   void initState() {
     super.initState();
     calculateSIP(); // Calculate the initial values
   }
+
 // Function to calculate SIP values
   void calculateSIP() {
     totalInvestment = monthlyInvestment * sipDuration * 12;
@@ -54,7 +57,7 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
         title:
             const Text('SIP Calculator', style: TextStyle(color: Colors.white)),
       ),
-      body: Column(
+      body: ListView(
         children: [
           const SizedBox(height: 10),
           Card(
@@ -154,55 +157,143 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Monthly Investment: ₹${monthlyInvestment.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Monthly Investment:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: GoogleFonts.lato().fontFamily,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                      width: 115,
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 5,
+                        child: Center(
+                          child: Text(
+                            '₹${monthlyInvestment.toStringAsFixed(2)}',
+                            style:  TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: GoogleFonts.lato().fontFamily,
+                                color: Colors.lightBlue[800]
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  right: 20,
-                  child: Slider(
-                    value: monthlyInvestment,
-                    onChanged: (newValue) {
-                      setState(() {
-                        monthlyInvestment = newValue;
-                      });
-                    },
-                    activeColor: Colors.indigo,
-                    min: 1000,
-                    max: 10000,
-// divisions: 18,
-                    label: '\₹${monthlyInvestment.toStringAsFixed(2)}',
-                  ),
-                ),
-                Text(
-                  'SIP Duration: $sipDuration years',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const SizedBox(height: 15), // Add some spacing between the rows
                 Slider(
-                  value: sipDuration.toDouble(),
+                  value: monthlyInvestment,
                   onChanged: (newValue) {
                     setState(() {
-                      sipDuration = newValue.toInt();
+                      monthlyInvestment = newValue;
                     });
                   },
                   activeColor: Colors.indigo,
-                  min: 1,
-                  max: 30,
-// divisions: 29,
-                  label: '$sipDuration years',
+                  min: 1000,
+                  max: 10000,
+                  // divisions: 18,
+                  label: '\₹${monthlyInvestment.toStringAsFixed(2)}',
                 ),
-                Text(
-                  'Expected Returns: $expectedReturns%',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'SIP Duration:',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: GoogleFonts.lato().fontFamily,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                          width: 90,
+                          child: Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            child: Center(
+                              child: Text(
+                                '$sipDuration years',
+                                style:  TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.lightBlue[800],
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: GoogleFonts.lato().fontFamily,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Slider(
+                      value: sipDuration.toDouble(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          sipDuration = newValue.toInt();
+                        });
+                      },
+                      activeColor: Colors.indigo,
+                      min: 1,
+                      max: 30,
+                      // divisions: 29,
+                      label: '$sipDuration years',
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Expected Returns',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: GoogleFonts.lato().fontFamily,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                          width: 70,
+                          child: Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            child: Center(
+                              child: Text(
+                                '$expectedReturns%',
+                                style:  TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: GoogleFonts.lato().fontFamily,
+                                    color: Colors.lightBlue[800]
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Slider(
                   value: expectedReturns,
@@ -217,19 +308,15 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                   divisions: 15,
                   label: '$expectedReturns%',
                 ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: calculateSIP,
+                    child: const Text('Calculate'),
+                    style: TextButton.styleFrom(backgroundColor: Colors.indigo),
+                  ),
+                ),
               ],
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: calculateSIP,
-                style:
-                TextButton.styleFrom(backgroundColor: Colors.indigo),
-                child: const Text('Calculate'),
-              ),
-            ],
           ),
         ],
       ),

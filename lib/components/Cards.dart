@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sip_planner/smart_calculator/RetirementPlanning.dart';
 import 'constants.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 class Cards extends StatelessWidget {
   const Cards({super.key, Key});
@@ -23,9 +24,9 @@ class Cards extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: Colors.indigo[50],
                 image: const DecorationImage(
-                  image: AssetImage("assets/images/car.jpg"),
+                  image: AssetImage("assets/images/car-remove.png"),
                   // fit: BoxFit.cover,
                 ),
               ),
@@ -34,7 +35,7 @@ class Cards extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.white.withOpacity(0.5),
                   highlightColor: Colors.transparent,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -64,9 +65,9 @@ class Cards extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: Colors.pink[50],
                 image: const DecorationImage(
-                  image: AssetImage("assets/images/house.jpg"),
+                  image: AssetImage("assets/images/house-removebg.png"),
                   // fit: BoxFit.cover,
                 ),
               ),
@@ -75,7 +76,7 @@ class Cards extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.white.withOpacity(0.5),
                   highlightColor: Colors.transparent,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -101,7 +102,7 @@ class Cards extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: Colors.green[50],
                 image: const DecorationImage(
                   image: AssetImage("assets/images/vac.png"),
                   // fit: BoxFit.cover,
@@ -112,7 +113,7 @@ class Cards extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.white.withOpacity(0.5),
                   highlightColor: Colors.transparent,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -132,12 +133,14 @@ class Cards extends StatelessWidget {
           //////////////////////////////////////////////
           InkWell(
             onTap: () {
-              // Handle tap on the first container
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext) =>
+                      const Retirement())); // Use 'Retirement' instead of 'RetirementCalculator'
             },
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: Colors.orange[50],
                 image: const DecorationImage(
                   image: AssetImage("assets/images/retirement.png"),
                   // fit: BoxFit.cover,
@@ -148,10 +151,10 @@ class Cards extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.white.withOpacity(0.5),
                   highlightColor: Colors.transparent,
-                  onTap: () {
-                    // Handle tap on the first container
-                  },
-                  child: const Column(
+                  // onTap: () {
+                  //   // Handle tap on the first container
+                  // },
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -177,7 +180,7 @@ class Cards extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: Colors.blue[50],
                 image: const DecorationImage(
                   image: AssetImage("assets/images/emi.png"),
                   // fit: BoxFit.cover,
@@ -192,7 +195,7 @@ class Cards extends StatelessWidget {
                   //
                   //   // Handle tap on the first container
                   // },
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -217,7 +220,7 @@ class Cards extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: Colors.purple[50],
                 image: const DecorationImage(
                   image: AssetImage("assets/images/edu.png"),
                   // fit: BoxFit.cover,
@@ -231,7 +234,7 @@ class Cards extends StatelessWidget {
                   // onTap: () {
                   //   // Handle tap on the first container
                   // },
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

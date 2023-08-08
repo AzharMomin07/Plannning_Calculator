@@ -20,16 +20,22 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
   // Calculate the future cost based on the user's input
 
   String calculateFutureCost() {
-    double inflationRate = _currentValue3 / 100; // Convert percentage to decimal
+    double inflationRate =
+        _currentValue3 / 100; // Convert percentage to decimal
     double numberOfYears = _currentValue;
     double presentCostOfDreamHouse = _currentValue2;
 
-    if (numberOfYears <= 0 || presentCostOfDreamHouse <= 0 || inflationRate <= 0) {
-      throw Exception("Invalid input. Please ensure all values are greater than 0.");
+    if (numberOfYears <= 0 ||
+        presentCostOfDreamHouse <= 0 ||
+        inflationRate <= 0) {
+      throw Exception(
+          "Invalid input. Please ensure all values are greater than 0.");
     }
 
-    double futureCost = presentCostOfDreamHouse * pow(1 + inflationRate, numberOfYears);
-    String formattedFutureCost = NumberFormat.decimalPattern().format(futureCost);
+    double futureCost =
+        presentCostOfDreamHouse * pow(1 + inflationRate, numberOfYears);
+    String formattedFutureCost =
+        NumberFormat.decimalPattern().format(futureCost);
     return formattedFutureCost;
   }
 
@@ -156,11 +162,13 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
                         child: Text(
                           "Calculate",
                         ),
-                        style: TextButton.styleFrom(backgroundColor: Colors.indigo),
+                        style: TextButton.styleFrom(
+                            backgroundColor: Colors.indigo),
                         onPressed: () {
                           try {
                             String futureCost = calculateFutureCost();
-                            String result = "Future Cost of Dream House: $futureCost RS";
+                            String result =
+                                "Future Cost of Dream House: $futureCost RS";
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {

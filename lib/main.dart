@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sip_planner/navigation_bar/HomePage.dart';
 import 'package:sip_planner/routing/AppRoutes.dart';
-import 'package:sip_planner/smart_calculator/HomePage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: HomePage(), // Use the HomePage from the home_page.dart file
       initialRoute: 'HomePage',
       routes: routing,
     );

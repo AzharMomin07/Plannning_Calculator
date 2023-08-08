@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'HomePage.dart';
+import 'package:sip_planner/navigation_bar/HomePage.dart';
 
 class ChildEducation extends StatefulWidget {
   const ChildEducation({super.key});
@@ -152,7 +152,7 @@ class _ChildEducationState extends State<ChildEducation> {
                       try {
                         String futureCost = calculateFutureCost();
                         String result =
-                            "Future Cost of Dream House: $futureCost RS";
+                            "Future Cost of Child Education: $futureCost RS";
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {

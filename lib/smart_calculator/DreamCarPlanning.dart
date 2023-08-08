@@ -1,6 +1,7 @@
-import 'dart:math'; // Import the math library for pow function
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DreamCarPlanning extends StatefulWidget {
   const DreamCarPlanning({super.key});
@@ -43,7 +44,7 @@ class _DreamCarPlanningState extends State<DreamCarPlanning> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigo,
-        title: const Text("Dream Car Planning"),
+        title: Text("Dream Car Planning"),
         // Back button leading to navigate back
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
@@ -62,7 +63,7 @@ class _DreamCarPlanningState extends State<DreamCarPlanning> {
                   height: 10.0,
                 ),
                 Image.asset(
-                  "assets/images/car.jpg",
+                  "assets/images/car-remove.png",
                   fit: BoxFit.cover,
                   height: 200,
                 ),
@@ -75,10 +76,10 @@ class _DreamCarPlanningState extends State<DreamCarPlanning> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Text(
+                      Text(
                         "How many years from now you want to drive car? ",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                        style: GoogleFonts.lato(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 10,
@@ -123,7 +124,7 @@ class _DreamCarPlanningState extends State<DreamCarPlanning> {
                           activeColor: Colors.indigo,
                           // inactiveColor: Colors.grey,
                           min: 100,
-                          max: 1500000,
+                          max: 10000000,
                           onChanged: (value) {
                             setState(() {
                               _currentValue2 = value;
@@ -131,7 +132,7 @@ class _DreamCarPlanningState extends State<DreamCarPlanning> {
                           }),
                       const SizedBox(height: 20.0),
                       const Text(
-                        "Assumed inflation in your Dream Car cost ",
+                        "Assumed inflation on your Dream Car cost ",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
@@ -163,7 +164,7 @@ class _DreamCarPlanningState extends State<DreamCarPlanning> {
                           try {
                             String futureCost = calculateFutureCost();
                             String result =
-                                "Future Cost of Dream House: $futureCost RS";
+                                "Future Cost of Dream Car: $futureCost RS";
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {

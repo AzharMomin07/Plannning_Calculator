@@ -1,6 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:sip_planner/components/Cards.dart';
+
+import '../components/Cards.dart';
+import 'FavouriteWidget.dart';
+import 'SettingWidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,25 +13,43 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+
+  Widget _getPage(int index) {
+    if (index == 0) {
+      return const Cards();
+    } else if (index == 1) {
+      return const FavouriteWidget();
+    } else {
+      return const SettingWidget();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
+// drawer: const MyDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue[800],
-        title: const Text(
-          "Planning Calculator",
-          style: TextStyle(color: Colors.white),
+        backgroundColor: Colors.indigo,
+        title: Center(
+          child: const Text(
+            "Planning Calculator",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
-      body: const Center(
-        child: Cards(), // Replace the Text widget with CardGrid widget
-      ),
-      backgroundColor: Colors.indigo,
+      body: _getPage(_selectedIndex),
+      backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.indigo,
         color: Colors.white,
         animationDuration: const Duration(milliseconds: 200),
+        index: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         items: const [
           Icon(Icons.home, color: Colors.indigo),
           Icon(Icons.favorite, color: Colors.indigo),

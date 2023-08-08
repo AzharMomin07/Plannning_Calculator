@@ -166,7 +166,7 @@ class _DreamHousePlanningState extends State<DreamVacationPlanning> {
                           try {
                             String futureCost = calculateFutureCost();
                             String result =
-                                "Future Cost of Dream House: $futureCost RS";
+                                "Future Cost of Vacation: $futureCost RS";
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
