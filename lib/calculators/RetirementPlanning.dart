@@ -1,8 +1,16 @@
 import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sip_planner/navigation_bar/HomePage.dart';
+
+import '../navigation_bar/HomePage.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Retirement(),
+  ));
+}
 
 class Retirement extends StatefulWidget {
   const Retirement({Key? key}) : super(key: key);
@@ -30,8 +38,6 @@ class _RetirementState extends State<Retirement> {
 
   void calculateRetirementSavingsNeeded() {
     if (presentAge >= retirementAge) {
-// Present age is greater than or equal to retirement age
-// Handle this case, e.g., show an error message or set the retirementSavingsNeeded to 0.
       retirementSavingsNeeded = 0.0;
       monthlyInvestment = 0.0;
       totalReturns = 0.0;
@@ -49,9 +55,7 @@ class _RetirementState extends State<Retirement> {
               assumedInflation);
       retirementSavingsNeeded =
           futureValueOfExpenses / pow(1 + assumedReturns, yearsToRetirement);
-// Calculate the monthly investment needed to achieve retirement savings goal
       monthlyInvestment = retirementSavingsNeeded / (yearsToRetirement * 12);
-// Calculate the total returns using the expected returns
       totalReturns = (monthlyInvestment * yearsToRetirement * 12) *
           pow(1 + assumedReturns, yearsToRetirement);
     }
@@ -62,14 +66,15 @@ class _RetirementState extends State<Retirement> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Info!'),
-          content: Text('Present age cannot be greater than retirement age.'),
+          title: const Text('Info!'),
+          content:
+              const Text('Present age cannot be greater than retirement age.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -82,14 +87,15 @@ class _RetirementState extends State<Retirement> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Info!'),
-          content: Text('Retirement age cannot be less than present age.'),
+          title: const Text('Info!'),
+          content:
+              const Text('Retirement age cannot be less than present age.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -102,19 +108,25 @@ class _RetirementState extends State<Retirement> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Info!'),
-          content: Text('Life expectancy cannot be less than retirement age!'),
+          title: const Text('Info!'),
+          content:
+              const Text('Life expectancy cannot be less than retirement age!'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
       },
     );
+  }
+
+  void _updateValuesAndChart() {
+    calculateRetirementSavingsNeeded();
+    setState(() {});
   }
 
   @override
@@ -132,7 +144,7 @@ class _RetirementState extends State<Retirement> {
             );
           },
         ),
-        title: Text('Retirement Calculator',
+        title: const Text('Retirement Calculator',
             style: TextStyle(color: Colors.white)),
       ),
       body: ListView(
@@ -166,7 +178,7 @@ class _RetirementState extends State<Retirement> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Monthly investment',
+                            'Monthly Investment',
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.cyan,
@@ -242,7 +254,7 @@ class _RetirementState extends State<Retirement> {
                             '$presentAge years',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.lightBlue[800],
+                              color: Colors.indigo[800],
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.lato().fontFamily,
                             ),
@@ -261,11 +273,12 @@ class _RetirementState extends State<Retirement> {
                       setState(() {
                         presentAge = newValue.toInt();
                       });
+                      _updateValuesAndChart();
                     }
                   },
+                  activeColor: Colors.indigo,
                   min: 1,
                   max: 100,
-                  activeColor: Colors.indigo,
                   label: '$presentAge years',
                 ),
                 Row(
@@ -289,7 +302,7 @@ class _RetirementState extends State<Retirement> {
                             ' $retirementAge years',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.lightBlue[800],
+                              color: Colors.indigo[800],
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.lato().fontFamily,
                             ),
@@ -308,6 +321,7 @@ class _RetirementState extends State<Retirement> {
                       setState(() {
                         retirementAge = newValue.toInt();
                       });
+                      _updateValuesAndChart();
                     }
                   },
                   activeColor: Colors.indigo,
@@ -336,7 +350,7 @@ class _RetirementState extends State<Retirement> {
                             ' $lifeExpectancy years',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.lightBlue[800],
+                              color: Colors.indigo[800],
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.lato().fontFamily,
                             ),
@@ -355,6 +369,7 @@ class _RetirementState extends State<Retirement> {
                       setState(() {
                         lifeExpectancy = newValue.toInt();
                       });
+                      _updateValuesAndChart();
                     }
                   },
                   activeColor: Colors.indigo,
@@ -374,16 +389,16 @@ class _RetirementState extends State<Retirement> {
                     ),
                     SizedBox(
                       height: 40,
-                      width: 100,
+                      width: 125,
                       child: Card(
                         elevation: 5,
                         color: Colors.white,
                         child: Center(
                           child: Text(
-                            ' ₹${currentMonthlyExpense.toStringAsFixed(2)}',
+                            ' ₹ ${currentMonthlyExpense.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.lightBlue[800],
+                              color: Colors.indigo[800],
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.lato().fontFamily,
                             ),
@@ -399,10 +414,11 @@ class _RetirementState extends State<Retirement> {
                     setState(() {
                       currentMonthlyExpense = newValue;
                     });
+                    _updateValuesAndChart();
                   },
                   activeColor: Colors.indigo,
                   min: 1000,
-                  max: 50000,
+                  max: 1000000,
                   divisions: 50,
                   label: '₹${currentMonthlyExpense.toStringAsFixed(2)}',
                 ),
@@ -424,10 +440,10 @@ class _RetirementState extends State<Retirement> {
                         color: Colors.white,
                         child: Center(
                           child: Text(
-                            '${(assumedInflation * 100).toStringAsFixed(2)}%',
+                            '${(assumedInflation * 100).toStringAsFixed(2)} %',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.lightBlue[800],
+                              color: Colors.indigo[800],
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.lato().fontFamily,
                             ),
@@ -443,6 +459,7 @@ class _RetirementState extends State<Retirement> {
                     setState(() {
                       assumedInflation = newValue / 100;
                     });
+                    _updateValuesAndChart();
                   },
                   activeColor: Colors.indigo,
                   min: 0,
@@ -468,10 +485,10 @@ class _RetirementState extends State<Retirement> {
                         color: Colors.white,
                         child: Center(
                           child: Text(
-                            '${(assumedReturns * 100).toStringAsFixed(2)}%',
+                            '${(assumedReturns * 100).toStringAsFixed(2)} %',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.lightBlue[800],
+                              color: Colors.indigo[800],
                               fontWeight: FontWeight.bold,
                               fontFamily: GoogleFonts.lato().fontFamily,
                             ),
@@ -487,6 +504,7 @@ class _RetirementState extends State<Retirement> {
                     setState(() {
                       assumedReturns = newValue / 100;
                     });
+                    _updateValuesAndChart();
                   },
                   activeColor: Colors.indigo,
                   min: 0,
@@ -496,19 +514,6 @@ class _RetirementState extends State<Retirement> {
                 ),
               ],
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  calculateRetirementSavingsNeeded();
-                  setState(() {});
-                },
-                child: const Text('Calculate'),
-                style: TextButton.styleFrom(backgroundColor: Colors.indigo),
-              ),
-            ],
           ),
         ],
       ),

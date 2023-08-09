@@ -1,24 +1,21 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:sip_planner/navigation_bar/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../navigation_bar/HomePage.dart';
 
 class SIPCalculatorScreen extends StatefulWidget {
   const SIPCalculatorScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _SIPCalculatorScreenState createState() => _SIPCalculatorScreenState();
 }
 
 class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
-// Default values for the SIP calculator
   double monthlyInvestment = 5000;
   int sipDuration = 10;
   double expectedReturns = 12; // In percentage
 
-// Variables to hold the calculated values
   double totalInvestment = 0;
   double totalReturns = 0;
 
@@ -28,14 +25,12 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
     calculateSIP(); // Calculate the initial values
   }
 
-// Function to calculate SIP values
   void calculateSIP() {
     totalInvestment = monthlyInvestment * sipDuration * 12;
     double interestRate = expectedReturns / 100;
     double futureValue = totalInvestment * pow(1 + interestRate, sipDuration);
     totalReturns = futureValue - totalInvestment;
 
-// Update the pie chart with the new data
     setState(() {});
   }
 
@@ -43,19 +38,20 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.blue,
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            color: Colors.white,
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            } // Navigate back to the previous screen
-            ),
-        title:
-            const Text('SIP Calculator', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.arrow_back_ios),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          },
+        ),
+        title: const Center(
+          child: Text('SIP Calculator', style: TextStyle(color: Colors.white)),
+        ),
       ),
       body: ListView(
         children: [
@@ -67,7 +63,6 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
               borderRadius: BorderRadius.circular(20.0),
             ),
             shadowColor: Colors.cyan,
-// Change the shadow color to your desired color
             margin: const EdgeInsets.all(10.0),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -99,28 +94,28 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                       ),
                     ),
                   ),
-
-// Display principal and returns below the names
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Principal:',
+                          Text(
+                            'Investment',
                             style: TextStyle(
-                              color: Colors.indigo,
                               fontSize: 18,
+                              color: Colors.indigo,
                               fontWeight: FontWeight.bold,
+                              fontFamily: GoogleFonts.lato().fontFamily,
                             ),
                           ),
+                          const SizedBox(height: 5),
                           Text(
-                            '₹${totalInvestment.toStringAsFixed(2)}',
-                            style: const TextStyle(
+                            '₹ ${totalInvestment.toStringAsFixed(2)}',
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              fontFamily: GoogleFonts.lato().fontFamily,
                             ),
                           ),
                         ],
@@ -128,19 +123,22 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Returns:',
+                          Text(
+                            'Gain',
                             style: TextStyle(
                               fontSize: 18,
                               color: Color(0xFF27A4C0),
                               fontWeight: FontWeight.bold,
+                              fontFamily: GoogleFonts.lato().fontFamily,
                             ),
                           ),
+                          const SizedBox(height: 5),
                           Text(
-                            '₹${totalReturns.toStringAsFixed(2)}',
-                            style: const TextStyle(
+                            '₹ ${totalReturns.toStringAsFixed(2)}',
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              fontFamily: GoogleFonts.lato().fontFamily,
                             ),
                           ),
                         ],
@@ -177,11 +175,11 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                         child: Center(
                           child: Text(
                             '₹${monthlyInvestment.toStringAsFixed(2)}',
-                            style:  TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: GoogleFonts.lato().fontFamily,
-                                color: Colors.lightBlue[800]
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.indigo[800],
+                              fontWeight: FontWeight.bold,
+                              fontFamily: GoogleFonts.lato().fontFamily,
                             ),
                           ),
                         ),
@@ -189,19 +187,19 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 15), // Add some spacing between the rows
+                const SizedBox(height: 15),
                 Slider(
                   value: monthlyInvestment,
                   onChanged: (newValue) {
                     setState(() {
                       monthlyInvestment = newValue;
+                      calculateSIP(); // Automatically recalculate and update the UI
                     });
                   },
                   activeColor: Colors.indigo,
                   min: 1000,
                   max: 10000,
-                  // divisions: 18,
-                  label: '\₹${monthlyInvestment.toStringAsFixed(2)}',
+                  label: '\₹ ${monthlyInvestment.toStringAsFixed(2)}',
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,9 +224,9 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                             child: Center(
                               child: Text(
                                 '$sipDuration years',
-                                style:  TextStyle(
+                                style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.lightBlue[800],
+                                  color: Colors.indigo[800],
                                   fontWeight: FontWeight.bold,
                                   fontFamily: GoogleFonts.lato().fontFamily,
                                 ),
@@ -248,12 +246,12 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                       onChanged: (newValue) {
                         setState(() {
                           sipDuration = newValue.toInt();
+                          calculateSIP();
                         });
                       },
                       activeColor: Colors.indigo,
                       min: 1,
                       max: 30,
-                      // divisions: 29,
                       label: '$sipDuration years',
                     ),
                   ],
@@ -280,12 +278,12 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                             elevation: 5,
                             child: Center(
                               child: Text(
-                                '$expectedReturns%',
-                                style:  TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: GoogleFonts.lato().fontFamily,
-                                    color: Colors.lightBlue[800]
+                                '$expectedReturns %',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.indigo[800],
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: GoogleFonts.lato().fontFamily,
                                 ),
                               ),
                             ),
@@ -300,6 +298,7 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                   onChanged: (newValue) {
                     setState(() {
                       expectedReturns = newValue;
+                      calculateSIP();
                     });
                   },
                   activeColor: Colors.indigo,
@@ -307,13 +306,6 @@ class _SIPCalculatorScreenState extends State<SIPCalculatorScreen> {
                   max: 20,
                   divisions: 15,
                   label: '$expectedReturns%',
-                ),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: calculateSIP,
-                    child: const Text('Calculate'),
-                    style: TextButton.styleFrom(backgroundColor: Colors.indigo),
-                  ),
                 ),
               ],
             ),

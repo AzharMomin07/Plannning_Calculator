@@ -1,23 +1,21 @@
-import 'dart:math'; // Import the math library for pow function
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sip_planner/Constants.dart';
 
-class DreamHousePlanning extends StatefulWidget {
-  const DreamHousePlanning({super.key});
+class DreamCarPlanning extends StatefulWidget {
+  const DreamCarPlanning({super.key});
 
   @override
-  State<DreamHousePlanning> createState() => _DreamHousePlanningState();
+  State<DreamCarPlanning> createState() => _DreamCarPlanningState();
 }
 
-class _DreamHousePlanningState extends State<DreamHousePlanning> {
+class _DreamCarPlanningState extends State<DreamCarPlanning> {
   double _currentValue = 0;
   double _currentValue2 = 100;
   double _currentValue3 = 0;
 
-  // Assuming the current cost of higher education is 100,000 (for example)
   double currentCostOfHigherEducation = 100000;
-
-  // Calculate the future cost based on the user's input
 
   String calculateFutureCost() {
     double inflationRate =
@@ -25,27 +23,70 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
     double numberOfYears = _currentValue;
     double presentCostOfDreamHouse = _currentValue2;
 
-    if (numberOfYears <= 0 ||
-        presentCostOfDreamHouse <= 0 ||
-        inflationRate <= 0) {
-      throw Exception(
-          "Invalid input. Please ensure all values are greater than 0.");
+    void showInvalidInputAlert(BuildContext context, String message) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "Invalid Input",
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Text(
+              message,
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: const Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
 
+    if (numberOfYears <= 0 && inflationRate <= 0) {
+      showInvalidInputAlert(
+        context,
+        "Number of Years and InflationRate should be greater than 0.",
+      );
+    } else if (numberOfYears <= 0) {
+      showInvalidInputAlert(
+        context,
+        "Please ensure Number of Years is greater than 0.",
+      );
+    } else if (inflationRate <= 0) {
+      showInvalidInputAlert(
+        context,
+        "Please ensure InflationRate is greater than 0.",
+      );
+    }
     double futureCost =
         presentCostOfDreamHouse * pow(1 + inflationRate, numberOfYears);
+    int futureCostInt = futureCost.toInt();
     String formattedFutureCost =
-        NumberFormat.decimalPattern().format(futureCost);
+        NumberFormat.decimalPattern().format(futureCostInt);
     return formattedFutureCost;
   }
+
+  String _calculatedResult = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigo,
-        title: const Text("Dream House Planning"),
-        // Back button leading to navigate back
+        title: const Text("Dream Car Planning"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -59,37 +100,31 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // Text(
-                //   "Dream House Planning",
-                //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                // ),
                 const SizedBox(
-                  height: 10.0,
+                  height: 5.0,
                 ),
                 Image.asset(
-                  "assets/images/house.jpg",
+                  "assets/images/car-remove.png",
                   fit: BoxFit.cover,
-                  height: 200,
+                  height: 170,
                 ),
                 const SizedBox(
                   height: 30.0,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 32.0),
+                  padding: Constants.defaultPadding,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Text(
-                        "After how many years from now, you plan to purchase your Dream House?",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                      Text(
+                        "How many years from now you want to drive car? ",
+                        style: Constants.titleTextStyle1,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "Years : ${_currentValue.toInt()}  YRS",
+                        "Years : ${_currentValue.toInt()} ",
                         style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -108,16 +143,15 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(
-                        "How much is the present cost of your Dream House?",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                      Text(
+                        "Cost of your Dream Car today? ",
+                        style: Constants.titleTextStyle1,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "Amount  : ${_currentValue2.toInt()}  RS",
+                        "Amount  :  ₹ ${_currentValue2.toInt()} ",
                         style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -126,7 +160,6 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
                       Slider(
                           value: _currentValue2,
                           activeColor: Colors.indigo,
-                          // inactiveColor: Colors.grey,
                           min: 100,
                           max: 1500000,
                           onChanged: (value) {
@@ -135,10 +168,9 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
                             });
                           }),
                       const SizedBox(height: 20.0),
-                      const Text(
-                        "Assumed Inflation in Dream House cost",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                      Text(
+                        "Assumed inflation in your Dream Car cost ",
+                        style: Constants.titleTextStyle1,
                       ),
                       Text(
                         "Percent : ${_currentValue3.toInt()}  %",
@@ -157,7 +189,6 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
                               _currentValue3 = value;
                             });
                           }),
-                      const SizedBox(height: 10.0),
                       ElevatedButton(
                         child: Text(
                           "Calculate",
@@ -166,32 +197,20 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
                             backgroundColor: Colors.indigo),
                         onPressed: () {
                           try {
-                            String futureCost = calculateFutureCost();
+                            String futureCostInt = calculateFutureCost();
                             String result =
-                                "Future Cost of Dream House: $futureCost RS";
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Calculation Result"),
-                                  content: Text(result),
-                                  actions: [
-                                    TextButton(
-                                      child: const Text("OK"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                                // "Future Cost of Dream House:" " $futureCost ";
+                                'Future Cost of Dream House: ₹ ${futureCostInt}';
+                            setState(() {
+                              _calculatedResult = result;
+                            });
                           } catch (e) {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: const Text("Error"),
+                                  title: const Text("Error !",
+                                      style: TextStyle(color: Colors.red)),
                                   content: Text(e.toString()),
                                   actions: [
                                     TextButton(
@@ -207,7 +226,18 @@ class _DreamHousePlanningState extends State<DreamHousePlanning> {
                           }
                         },
                       ),
-                      const SizedBox(height: 10.0),
+                      const SizedBox(height: 10),
+                      // Display calculated result at the bottom of the screen
+                      Center(
+                        child: Text(
+                          _calculatedResult,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            color: Colors.indigo,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 )

@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-
 import '../components/Cards.dart';
 import 'FavouriteWidget.dart';
 import 'SettingWidget.dart';
@@ -28,13 +27,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-// drawer: const MyDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.indigo.shade600,
         title: Center(
           child: const Text(
             "Planning Calculator",
             style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
           ),
         ),
       ),

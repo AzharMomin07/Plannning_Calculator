@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sip_planner/smart_calculator/RetirementPlanning.dart';
-import 'constants.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:sip_planner/Constants.dart';
+import 'package:sip_planner/calculators/RetirementPlanning.dart';
 
 class Cards extends StatelessWidget {
   const Cards({super.key, Key});
@@ -10,7 +9,6 @@ class Cards extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
         shrinkWrap: true,
-        // Set shrinkWrap to true
         crossAxisCount: 2,
         mainAxisSpacing: 15,
         crossAxisSpacing: 10,
@@ -43,10 +41,7 @@ class Cards extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: Text(
                           "Car",
-                          style: AppConstants.titleTextStyle,
-                            // color: Colors.indigo,
-                            // fontSize: 18,
-                            // fontWeight: FontWeight.bold,
+                          style: Constants.titleTextStyle,
                         ),
                       ),
                     ],
@@ -55,12 +50,9 @@ class Cards extends StatelessWidget {
               ),
             ),
           ),
-
-          ///////////////////////////////////////////////////////
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context,
-                  "DreamHousePlanning"); // Handle tap on the first container
+              Navigator.pushNamed(context, "DreamHousePlanning");
             },
             child: Container(
               decoration: BoxDecoration(
@@ -83,8 +75,8 @@ class Cards extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          "House", // Replace with the desired name
-                          style: AppConstants.titleTextStyle,
+                          "House",
+                          style: Constants.titleTextStyle,
                         ),
                       ),
                     ],
@@ -93,11 +85,9 @@ class Cards extends StatelessWidget {
               ),
             ),
           ),
-          ///////////////////////////////////////
           InkWell(
             onTap: () {
-              Navigator.pushNamed(
-                  context, "DreamVacationPlanning"); // Handle tap on the first container
+              Navigator.pushNamed(context, "DreamVacationPlanning");
             },
             child: Container(
               decoration: BoxDecoration(
@@ -120,8 +110,8 @@ class Cards extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(5.0),
                         child: Text(
-                          "Vacation", // Replace with the desired name
-                          style: AppConstants.titleTextStyle,
+                          "Vacation",
+                          style: Constants.titleTextStyle,
                         ),
                       ),
                     ],
@@ -130,12 +120,10 @@ class Cards extends StatelessWidget {
               ),
             ),
           ),
-          //////////////////////////////////////////////
           InkWell(
             onTap: () {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext) =>
-                      const Retirement())); // Use 'Retirement' instead of 'RetirementCalculator'
+                  builder: (BuildContext) => const Retirement()));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -151,9 +139,6 @@ class Cards extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.white.withOpacity(0.5),
                   highlightColor: Colors.transparent,
-                  // onTap: () {
-                  //   // Handle tap on the first container
-                  // },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,8 +146,8 @@ class Cards extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          "Retirement", // Replace with the desired name
-                          style: AppConstants.titleTextStyle,
+                          "Retirement",
+                          style: Constants.titleTextStyle,
                         ),
                       ),
                     ],
@@ -171,11 +156,9 @@ class Cards extends StatelessWidget {
               ),
             ),
           ),
-          //////////////////////////////////////////////////////
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context,
-                  'SIP'); // Handle tap on the first container
+              Navigator.pushNamed(context, 'SIP');
             },
             child: Container(
               decoration: BoxDecoration(
@@ -191,10 +174,6 @@ class Cards extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.white.withOpacity(0.5),
                   highlightColor: Colors.transparent,
-                  // onTap: () {
-                  //
-                  //   // Handle tap on the first container
-                  // },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -202,8 +181,8 @@ class Cards extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          "Sip-O-Meter", // Replace with the desired name
-                          style: AppConstants.titleTextStyle,
+                          "SIP", // Replace with the desired name
+                          style: Constants.titleTextStyle,
                         ),
                       ),
                     ],
@@ -212,10 +191,9 @@ class Cards extends StatelessWidget {
               ),
             ),
           ),
-          //////////////////////////////////////////////////////
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, "ChildEducationPlanning");// Handle tap on the first container
+              Navigator.pushNamed(context, "ChildEducationPlanning");
             },
             child: Container(
               decoration: BoxDecoration(
@@ -231,9 +209,6 @@ class Cards extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.white.withOpacity(0.5),
                   highlightColor: Colors.transparent,
-                  // onTap: () {
-                  //   // Handle tap on the first container
-                  // },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -242,8 +217,7 @@ class Cards extends StatelessWidget {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                           "Education",
-                          // Replace with the desired name
-                          style: AppConstants.titleTextStyle,
+                          style: Constants.titleTextStyle,
                         ),
                       ),
                     ],
@@ -255,98 +229,3 @@ class Cards extends StatelessWidget {
         ]);
   }
 }
-          // InkWell(
-          //   onTap: () {
-          //     // Handle tap on the first container
-          //   },
-          //   child: Container(
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(15),
-          //       color: Colors.white,
-          //       image: const DecorationImage(
-          //         image: AssetImage("assets/images/vacation5.png"),
-          //         // fit: BoxFit.cover,
-          //       ),
-          //     ),
-          //     child: Material(
-          //       color: Colors.transparent,
-          //       child: InkWell(
-          //         splashColor: Colors.white.withOpacity(0.5),
-          //         highlightColor: Colors.transparent,
-          //         onTap: () {
-          //           // Handle tap on the first container
-          //         },
-          //         child: const Column(
-          //           mainAxisAlignment: MainAxisAlignment.end,
-          //           crossAxisAlignment: CrossAxisAlignment.center,
-          //           children: [
-          //             Padding(
-          //               padding: EdgeInsets.all(8.0),
-          //               child: Text(
-          //                 "Dream Vacation", // Replace with the desired name
-          //                 style: TextStyle(
-          //                   color: Colors.indigo,
-          //                   fontSize: 16,
-          //                   fontWeight: FontWeight.bold,
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-// //////////////////////////////////////////////////////
-// //
-//           InkWell(
-//             onTap: () {
-//               // Handle tap on the first container
-//             },
-//             child: Container(
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.circular(15),
-//                 color: Colors.white,
-//                 image: const DecorationImage(
-//                   image: AssetImage("assets/images/goalPlanning4.jpg"),
-//                   // fit: BoxFit.cover,
-//                 ),
-//               ),
-//               child: Material(
-//                 color: Colors.transparent,
-//                 child: InkWell(
-//                   splashColor: Colors.white.withOpacity(0.5),
-//                   highlightColor: Colors.transparent,
-//                   onTap: () {
-//                     // Handle tap on the first container
-//                   },
-//                   child: const Column(
-//                     mainAxisAlignment: MainAxisAlignment.end,
-//                     crossAxisAlignment: CrossAxisAlignment.center,
-//                     children: [
-//                       Padding(
-//                         padding: EdgeInsets.all(8.0),
-//                         child: Text(
-//                           "Goal Planning", // Replace with the desired name
-//                           style: TextStyle(
-//                             color: Colors.indigo,
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ),
-
-          // children: [
-          //   Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.blue)),
-          //   Container(color: Colors.green),
-          //   Container(color: Colors.white),
-          //   Container(color: Colors.red),
-          //   Container(color: Colors.orange),
-          //   Container(color: Colors.blueGrey),
-

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(), // Use the HomePage from the home_page.dart file
+      home: const HomePage(), // Use the HomePage from the home_page.dart file
       initialRoute: 'HomePage',
       routes: routing,
     );
